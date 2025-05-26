@@ -1,7 +1,12 @@
 import { MongoClient, Db } from 'mongodb';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+// Load environment variables
+const result = dotenv.config();
+console.log('Environment loading result:', result);
+console.log('Current working directory:', process.cwd());
+console.log('Looking for .env in:', path.resolve(process.cwd(), '.env'));
 
 export class DatabaseConfig {
   private static instance: DatabaseConfig;
@@ -15,6 +20,7 @@ export class DatabaseConfig {
     console.log('Environment variables:');
     console.log('COSMOS_CONNECTION_STRING:', connectionString ? 'Present' : 'Missing');
     console.log('COSMOS_DATABASE_ID:', databaseId);
+    console.log('All environment variables:', process.env);
 
     if (!connectionString) {
       throw new Error('Cosmos DB connection string missing');
